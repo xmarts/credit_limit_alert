@@ -8,6 +8,7 @@
     'depends': ['sale', 'account_accountant'],
     'data': [
         'views/res_partner_view.xml',
+        'views/sale_order_view.xml',
     ],
     'installable': True,
 }
