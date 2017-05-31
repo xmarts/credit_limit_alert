@@ -14,7 +14,11 @@ class CreditLimitAlertSaleOrder(models.Model):
                 if self.payment_term_id.name != 'Immediate Payment':
                     if self.permitted_credit_limit is not True:
                         self.avisado = True
-                        raise exceptions.RedirectWarning('Este cliente ha exedido el limite de credito. Su limite actual es: '+ str(self.partner_id.credit_limit) +', actualmente tiene una deuda de: '+ str(self.partner_id.credit) )
+                        raise exceptions.RedirectWarning('Este cliente ha exedido el limite de credito. Su limite actual es: '
+                                                         + str(self.partner_id.credit_limit) +', actualmente tiene una deuda de: '
+                                                         + str(self.partner_id.credit) + ' y disponible tiene '
+                                                         + str(self.partner_id.credit_avalible)
+                                                         + ', debe que autorizar el limite de credito excedido' )
 
         res = super(CreditLimitAlertSaleOrder, self).action_confirm()
 

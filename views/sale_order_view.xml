@@ -11,6 +11,7 @@
                 <xpath expr="//field[@name='payment_term_id']" position="after">
                     <!-- Add your fields or attributes here -->
                     <field name="permitted_credit_limit" />
+
                 </xpath>
                 <xpath expr="//field[@name='payment_term_id']" position="attributes">
                     <!-- Add your fields or attributes here -->
