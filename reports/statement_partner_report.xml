@@ -6,12 +6,12 @@
             id="action_report_statement_partner"
             model="res.partner"
             report_type="qweb-pdf"
-            name="credit_limit_alert.report_statement_partner"
-            file="credit_limit_alert.report_statement_partner"
+            name="credit_limit_alert.statement_partner_report"
+            file="credit_limit_alert.statement_partner_report"
         />
 
 
-        <template id="report_statement_partner">
+        <template id="statement_partner_report">
             <t t-call="report.html_container">
                 <t t-call="credit_limit_alert.statement_partner_docs"/>
             </t>
@@ -40,7 +40,7 @@
                 <t t-call="credit_limit_alert.external_layout_report_statemnt">
                     <div class="page">
                         <h2>Report title</h2>
-                        <p>This object's name is <span t-field="o.name"/></p>
+                        <p>This object's name is <span t-esc="dates.get('start')"/></p>
                     </div>
                 </t>
             </t>

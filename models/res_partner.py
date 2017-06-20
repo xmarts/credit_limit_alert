@@ -8,15 +8,15 @@ class CreditLimitAlertResPartner(models.Model):
     credit_available = fields.Monetary('Cedito disponible', compute='_compute_amount_credit_available')
     # date_start = fields.Date('Fecha de inicio', required=True)
     # date_end = fields.Date('Fecha de fin', required=True)
-    #
-    # @api.one
-    # @api.depends('credit_limit','credit_available','credit')
-    # def _compute_amount_credit_available(self):
-    #
-    #     self.credit_available = self.credit_limit - self.credit
-    #
-    #     pass
-    #
+
+    @api.one
+    @api.depends('credit_limit','credit_available','credit')
+    def _compute_amount_credit_available(self):
+
+        self.credit_available = self.credit_limit - self.credit
+
+        pass
+
     #
     # @api.model
     # def _get_data(self):
@@ -57,7 +57,3 @@ class CreditLimitAlertResPartner(models.Model):
     #     datas['form'] = values.get('data')
     #
     #     return self._print_report(datas)
-
-
-
-
