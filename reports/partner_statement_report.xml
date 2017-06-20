@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            string="Statement of accounts"
+            id="action_report_statement_partner"
+            model="res.partner"
+            report_type="qweb-pdf"
+            name="credit_limit_alert.report_statement_partner"
+            file="credit_limit_alert.report_statement_partner"
+        />
+
+
+        <template id="report_statement_partner">
+            <t t-call="report.html_container">
+                <t t-call="credit_limit_alert.statement_partner_docs"/>
+            </t>
+        </template>
+
+        <template id="external_layout_report_statemnt">
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"></t>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+            <t t-call="credit_limit_alert.header_statemnt_partner" />
+            <t t-raw="0" />
+            <t t-call="credit_limit_alert.footer_statemnt_partner" />
+        </template>
+
+        <template id="header_statemnt_partner">
+            <div class="header">
+                header
+            </div>
+        </template>
+
+        <template id="statement_partner_docs">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="credit_limit_alert.external_layout_report_statemnt">
+                    <div class="page">
+                        <h2>Report title</h2>
+                        <p>This object's name is <span t-field="o.name"/></p>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <template id="footer_statemnt_partner">
+            <div class="footer">
+                foother
+            </div>
+        </template>
+
+
+
+
+    </data>
+</openerp>

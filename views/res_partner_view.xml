@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <!-- Inherit Form View to Modify it -->
         <record id="credit_limit_alert_view_partner_form" model="ir.ui.view">
             <field name="name">credit.limit.alert.view.partner.form</field>
             <field name="model">res.partner</field>
@@ -9,9 +8,17 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//field[@name='credit']" position="after">
-                    <!-- Add your fields or attributes here -->
                     <field name="credit_limit"/>
                     <field name="credit_available"/>
+                </xpath>
+
+                <xpath expr="//field[@name='trust']" position="after">
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+
+                    <button name="check_report"
+                            string="Estado de cuenta"
+                            type="object" class="btn-primary"/>
 
                 </xpath>
 

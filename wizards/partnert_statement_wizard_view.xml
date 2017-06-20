@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="credit_limit_alert_partner_statement_wizard_view">
+        <field name="name">Generador de reportes</field>
+        <field name="model">credit_limit_alert.partner_statement_wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <separator/>
+                <html>
+                    <hr/>
+                    <blockquote>
+                        <span  class="text-info" style="font-size:18px;">
+                            Desde esta interfaz puede generar un reporte completo,
+                            con todos los detalles de las ventas realizadas por los usuarios.
+                        </span>
+                    </blockquote>
+                </html>
+                <hr/>
+                <group col="4" string="Fechas">
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                </group>
+                <field name="partner_id"/>
+                <footer>
+                    <button string='Generar reporte' name="check_report" type="object" class="oe_highlight"/>
+                     or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="pos_user_report_wizard_action" model="ir.actions.act_window">
+        <field name="name">Reporte de ventas por usuario</field>
+        <field name="res_model">credit_limit_alert.partner_statement_wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+       <field name="view_id" ref="credit_limit_alert_partner_statement_wizard_view"/>
+       <field name="target">new</field>
+    </record>
+
+    <menuitem name="Reportes AA" parent="point_of_sale.menu_point_root" id="aa_menu_point_rep" sequence="99" groups="point_of_sale.group_pos_manager"/>
+    <menuitem
+            id="statement_report_menu"
+            name="Informe de venta por usuario"
+            parent="aa_menu_point_rep"
+            action="pos_user_report_wizard_action"
+            sequence="3"
+    />
+
+
+
+
+    </data>
+</openerp>
