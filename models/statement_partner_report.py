@@ -1,10 +1,10 @@
 from odoo import models, fields, api
 
-class PosUserReport(models.Model):
+class StatementPartnerReport(models.AbstractModel):
     _name = 'report.credit_limit_alert.statement_partner_report'
 
-    @api.multi
-    def render_html(self, docids, data):
+    @api.model
+    def render_html(self, docids, data=None):
         """Render report template"""
         report_obj = self.env['report']
         report = report_obj._get_report_from_name('credit_limit_alert.statement_partner_report')
@@ -12,7 +12,8 @@ class PosUserReport(models.Model):
         docargs = {
             'doc_ids': docids,
             'doc_model': report.model,
-            'docs': self,
+            'docs': data['form'],
+            'dates': data['dates'],
         }
 
         return report_obj.render('credit_limit_alert.statement_partner_report', docargs)
