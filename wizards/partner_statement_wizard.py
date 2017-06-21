@@ -51,9 +51,11 @@ class PosOrderLineWizardReport(models.TransientModel):
         }
         result.append(partner)
 
-        currencys_ids = self.env['res.currency'].search([('active', '=', True)])
 
-        for currency in currencys_ids:
+        currency_obj = self.env['res.currency']
+        currencys_ids = currency_obj.search([('active', '=', True)])
+
+        for currency in currency_obj.browse(currencys_ids.ids):
 
 
             invoices_obj = self.env['account.invoice']
@@ -76,21 +78,20 @@ class PosOrderLineWizardReport(models.TransientModel):
             report_lines = []
 
             for invoice in invoices_ids:
-
-
-                saldo = saldo + invoice.amount_total
                 vals = {
                     'date': invoice.date_invoice,
+                    'date_due': invoice.date_due,
                     'move_name': invoice.move_name,
                     'currency_id' : invoice.currency_id.name,
                     'amount_total' : invoice.amount_total,
                     'saldo': saldo,
-                    'type': 'invoice'
+                    'type': 'invoice',
                 }
                 report_lines.append(vals)
             for payment in payments_ids:
                 pvals = {
                     'date': payment.payment_date,
+                    'date_due': '',
                     'move_name': payment.name,
                     'currency_id': payment.currency_id.name,
                     'amount_total': payment.amount,
@@ -111,11 +112,6 @@ class PosOrderLineWizardReport(models.TransientModel):
 
                     saldo = saldo - line['amount_total']
                     sorted_report_lines[idx]['saldo'] = saldo
-
-
-
-
-
 
             report_currency = {
                 'currency': currency.name,
