@@ -3,6 +3,9 @@ from odoo import models, fields, api
 class StatementPartnerReport(models.AbstractModel):
     _name = 'report.credit_limit_alert.statement_partner_report'
 
+
+
+
     @api.model
     def render_html(self, docids, data=None):
         """Render report template"""
@@ -14,6 +17,7 @@ class StatementPartnerReport(models.AbstractModel):
             'doc_model': report.model,
             'docs': data['form'],
             'dates': data['dates'],
+            'partner': data['partner']
         }
 
         return report_obj.render('credit_limit_alert.statement_partner_report', docargs)

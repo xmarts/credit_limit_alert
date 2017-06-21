@@ -12,15 +12,13 @@
                     <field name="credit_available"/>
                 </xpath>
 
-                <!--<xpath expr="//field[@name='trust']" position="after">-->
-                    <!--<field name="date_start"/>-->
-                    <!--<field name="date_end"/>-->
+                <xpath expr="//field[@name='trust']" position="after">
 
-                    <!--<button name="check_report"-->
-                            <!--string="Estado de cuenta"-->
-                            <!--type="object" class="btn-primary"/>-->
+                    <button name="call_wizard"
+                            string="Estado de cuenta"
+                            type="object" class="btn-primary"/>
 
-                <!--</xpath>-->
+                </xpath>
 
             </field>
         </record>

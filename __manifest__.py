@@ -10,6 +10,7 @@
         'views/res_partner_view.xml',
         'views/sale_order_view.xml',
         'reports/statement_partner_report.xml',
+        'wizards/partnert_statement_wizard_view.xml',
     ],
     'installable': True,
 }
