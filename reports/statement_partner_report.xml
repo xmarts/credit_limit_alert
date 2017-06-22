@@ -83,6 +83,13 @@
             <t t-call="credit_limit_alert.external_layout_report_statemnt">
 
                 <div class="page">
+
+                    <t t-if="o and 'company_id' in o">
+                        <t t-set="company" t-value="o.company_id"></t>
+                    </t>
+                    <t t-if="not o or not 'company_id' in o">
+                        <t t-set="company" t-value="res_company"></t>
+                    </t>
                     
                     <style type="text/css">
                         .tg  {border-collapse:collapse;border-spacing:0;}
@@ -143,7 +150,7 @@
                             <td class="tg-031e" colspan="4" style="color:red"><span t-esc="o.get('currency')"/></td>
                         </tr>
                         <tr>
-                            <td class="tg-e3zv" colspan="2">Dese fecha</td>
+                            <td class="tg-e3zv" colspan="2">Desde fecha</td>
                             <td class="tg-031e" colspan="4"><span t-esc="dates.get('start')"/></td>
                         </tr>
                         <tr>
@@ -152,11 +159,11 @@
                         </tr>
                         <tr>
                             <td class="tg-e3zv" colspan="2">Limite de crédito</td>
-                            <td class="tg-031e" colspan="4"><span t-esc="partner.get('credit_limit')"/></td>
+                            <td class="tg-031e" colspan="4"><span t-field="company.currency_id.name"/> $<span t-esc="partner.get('credit_limit')"/></td>
                         </tr>
                         <tr>
                             <td class="tg-e3zv" colspan="2">Credito disponible</td>
-                            <td class="tg-031e" colspan="4"><span t-esc="partner.get('credit_available')"/></td>
+                            <td class="tg-031e" colspan="4"><span t-field="company.currency_id.name"/> $<span t-esc="partner.get('credit_available')"/></td>
                         </tr>
                         <tr>
                             <td class="tg-031e" colspan="12"><br/></td>
@@ -175,18 +182,18 @@
                             <td class="tg-s6z2" colspan="2"><span t-esc="line.get('date_due')"/></td>
                             <td class="tg-s6z2" colspan="2">
                                 <t t-if="line.get('type')=='invoice'">
-                                    <span t-esc="line.get('amount_total')"/>
+                                    $<span t-esc="line.get('amount_total')"/>
                                 </t>
                                 <t t-if="line.get('type')=='payment'">
-                                    0.00
+                                    $0.00
                                 </t>
                             </td>
                             <td class="tg-s6z2" colspan="2">
                                 <t t-if="line.get('type')=='payment'">
-                                    -<span t-esc="line.get('amount_total')"/>
+                                    -$<span t-esc="line.get('amount_total')"/>
                                 </t>
                                 <t t-if="line.get('type')=='invoice'">
-                                    0.00
+                                    $0.00
                                 </t>
                             </td>
                             <td class="tg-0ord" colspan="2"><span t-esc="line.get('saldo')"/></td>
@@ -218,7 +225,7 @@
                             <td class="tg-031e"></td>
                             <td class="tg-031e"></td>
                             <td class="tg-031e"></td>
-                            <td class="tg-0ord" colspan="2"><span t-esc="o.get('saldo')"/></td>
+                            <td class="tg-0ord" colspan="2">$<span t-esc="o.get('saldo')"/></td>
                         </tr>
                     </table>
                 </div>

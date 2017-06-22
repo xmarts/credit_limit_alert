@@ -13,6 +13,7 @@ class PosOrderLineWizardReport(models.TransientModel):
     date_end = fields.Date('Fecha de fin')#, required=True)
 
 
+
     @api.one
     @api.depends('str_partner_id')
     def _compute_partner(self):
@@ -46,8 +47,8 @@ class PosOrderLineWizardReport(models.TransientModel):
             'email': self.partner_id.email,
             'ref': self.partner_id.ref,
             'property_payment_term_id': self.partner_id.property_payment_term_id.name,
-            'credit_limit': self.partner_id.credit_limit,
-            'credit_available': self.partner_id.credit_available,
+            'credit_limit': format(self.partner_id.credit_limit, '.2f'),
+            'credit_available': format(self.partner_id.credit_available, '.2f'),
         }
         result.append(partner)
 
@@ -83,8 +84,9 @@ class PosOrderLineWizardReport(models.TransientModel):
                     'date_due': invoice.date_due,
                     'move_name': invoice.move_name,
                     'currency_id' : invoice.currency_id.name,
-                    'amount_total' : invoice.amount_total,
+                    'amount_total' : format(invoice.amount_total, '.2f'),
                     'saldo': saldo,
+                    'saldoint': 0,
                     'type': 'invoice',
                 }
                 report_lines.append(vals)
@@ -94,7 +96,7 @@ class PosOrderLineWizardReport(models.TransientModel):
                     'date_due': '',
                     'move_name': payment.name,
                     'currency_id': payment.currency_id.name,
-                    'amount_total': payment.amount,
+                    'amount_total': format(payment.amount, '.2f'),
                     'saldo': saldo,
                     'type': 'payment'
                 }
@@ -105,17 +107,17 @@ class PosOrderLineWizardReport(models.TransientModel):
             for idx, line in enumerate(sorted_report_lines):
                 if line['type'] is 'invoice':
 
-                    saldo = saldo + line['amount_total']
-                    sorted_report_lines[idx]['saldo'] = saldo
+                    saldo = saldo + float(line['amount_total'])
+                    sorted_report_lines[idx]['saldo'] = format(saldo, '.2f')
 
                 else:
 
-                    saldo = saldo - line['amount_total']
-                    sorted_report_lines[idx]['saldo'] = saldo
+                    saldo = saldo - float(line['amount_total'])
+                    sorted_report_lines[idx]['saldo'] = format(saldo, '.2f')
 
             report_currency = {
                 'currency': currency.name,
-                'saldo': saldo,
+                'saldo': format(saldo, '.2f'),
                 'report_lines':sorted_report_lines,
             }
             if saldo > 0:
