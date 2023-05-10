@@ -6,6 +6,7 @@
     'author': 'Raul Ovalle, raul@xmarts.do',
     'website': 'www.xmarts.com',
     'depends': ['sale', 'account_accountant'],
+    'license': 'LGPL-3',
     'data': [
         'views/res_partner_view.xml',
         'views/sale_order_view.xml',
